@@ -303,3 +303,77 @@ $ npm install xx-loader --save-dev
 $ npm install css-loader style-loader --save-dev
 
 ```
+
+### webpack开发环境与生产环境
+
+前端开发环境通常分为两种，开发环境和生产环境，在开发环境中，可能我们需要日志输出， sourcemap， 错误报告等功能，
+在生产环境中，需要做代码压缩，hash值生成。两种环境在其他的一些配置上也可能不同。
+
+所以为了区分，我们可以创建两个文件：
+
+* webpack.config.js // 开发环境
+* webpack.config.prod.js // 生产环境
+
+生产环境build用如下命令：
+
+```js
+$webpack --config webpack.config.prod.js
+```
+
+### webpack插件
+
+webpack提供插件机制，可以对每次build的结果进行处理。配置plugin的方法为在webpack.config.js中添加：
+
+```js
+{
+    plugins: [
+        new BellOnBundlerErrorPlugin()
+    ]
+}
+```
+
+plugin也是一个npm模块，安装一个plugin：
+
+```js
+$ npm install bell-on-bundler-error-plugin --save-dev
+```
+
+### webpack分割vendor代码和应用业务代码
+
+为了实现业务代码和第三方代码的分离，我们可以利用 CommonsChunkPlugin 插件。
+
+修改 webpack.config.js
+
+```js
+{
+    entry: {
+        index: './src/index.js',
+        a: './src/a.js',
+        // 第三方包
+        vendor: [
+            'react',
+            'react-dom'
+        ]
+    },
+    output: {
+        path: './dist/',
+        filename: '[name].js'
+    },
+    module: {
+        loaders: [{
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel',
+            query: {
+                presets: ['es2015', 'stage-0', 'react']
+            }
+        }, {
+            test: /\.css$/, 
+            loader: "style-loader!css-loader" 
+        }]
+    },
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
+    ]
+}
+```
