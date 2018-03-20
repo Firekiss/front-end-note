@@ -70,3 +70,15 @@ extensions: ['.js', '.json']
 ```js
 extensions: ['.ts', '.js', '.json']
 ```
+
+### modules
+
+
+`resolve.modules`配置Webpack 去哪些目录下寻找第三方模块，默认是只会去 `node_modules`目录下寻找。有时你的项目里会有一些模块会大量被其他模块会大量被其他模块依赖和导入，由于其他模块的位置分布不定，针对不同的文件都要去计算被导入模块文件的相对路径，这个路径有时候会很长`import '../../../components/buttom'`这时你可以利用`modules`配置项优化，假如哪些被大量导入的模块都在`./src/components`目录下，把`modules`配置成
+
+```js
+modules: ['./src/components', 'node_modules']
+```
+
+以后可以通过`import 'button'`导入。
+
