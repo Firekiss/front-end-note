@@ -16,11 +16,11 @@ module.export = {
 
 注意，`context`必须是一个绝对路径的字符串。除此之外，还可以在启动Webpack时带上参数`webpack --context`来设置`context`
 
-之所以在这里先介绍`context`，是因为Entry的路径和其依赖的模块的路径可能采用相对于`context`的路径来描述，`context`会影响到这些相对路径所指向的真是文件。
+之所以在这里先介绍`context`，是因为Entry的路径和其依赖的模块的路径可能采用相对于`context`的路径来描述，`context`会影响到这些相对路径所指向的真实文件。
 
 ### Entry类型
 
-Entry 类型可以是一下三种中的一种或者相互结合:
+Entry 类型可以是以下三种中的一种或者相互结合:
 
 类型|例子|含义
 | :--------:   | :-----:   | :----: |
@@ -30,13 +30,20 @@ object | {a: ./app/entry-a', b: ['./app/entry-b1', './app/entry-b2']} | 配置�
 
 如果是`array`类型，则搭配`output.library`配置项使用时，只有数组里的最后一个入口文件的模块会被导出。
 
+将多个不相关的文件打包在一起常常会使用数组的形式,比如导报vendor第三方等等.
+
 ### Chunk名称
 
 Webpack 会为每个生成的Chunk取一个名称，Chunk的名称和Entry的配置有关：
 
 * 如果`entry`是一个`string`或`array`,就只会生成一个Chunk，这时Chunk的名称是`main`;
 
-* 如果`entry`是一个`object`,就可能会出现多个Chunk，这时Chunk的名称就是`object`键值对里键的名称。 
+* 如果`entry`是一个`object`,就可能会出现多个Chunk，这时Chunk的名称就是`object`键值对里键的名称。
+
+字符串类型和数组类型都是 key-value对象类型的简化形式
+
+**key可以是路径字符串**.此时webpack会自动生成路径,并且将路径的最后作为[name].
+
 
 ### 配置动态Entry
 

@@ -53,7 +53,7 @@ publicPath: 'https://cdn.example.com/assets/'
 
 这时发布到线上的HTML在引入Javascript文件时就需要：
 
-```js
+```html
 <script src='https://cnd.exapmle.com/assets/a_123445.js'></script>
 ```
 
@@ -81,7 +81,73 @@ script标签的crossorigin属性可以取以下值：
 * `output.libraryTarget`配置以何种方式导出库。
 * `output.library`配置导出库的名称。
 
-它们通常倒赔在一起使用。
+它们通常搭配在一起使用。
 
 `output.libraryTarget`是字符串的枚举类型，支持以下配置。
 
+* var (default)
+
+编写的库将通过`var`被赋值给通过`library`指定名称的变量.
+
+如果配置了`output.library = 'LibraryName'`,
+
+```js
+// Webpack 输出的代码
+var LibraryName = lib_code;
+
+// 使用库的方法
+LibraryName.doSomething();
+```
+
+假如`output.library`为空,则将直接输出: `lib_code`
+
+> 其中`lib_code`代指导出库的代码内容,是有返回值的一个自执行函数.
+
+* commonjs
+
+编写的库将通过CommonJS规范导出.
+
+假如配置了`output.library = 'LibraryName'`,
+
+```js
+// Webpack 输出的代码
+exports['LibraryName'] = lib_code;
+
+// 使用库的方法
+require('library-name-in-npm')['LibraryName'].doSomething();
+```
+
+> 其中`library-name-in-npm`是指模块发布到Npm代码仓库时的名称。
+
+* commonjs2
+
+编写的库将通过CommonJS2规范导出
+
+```js
+// Webpack 输出的代码
+module.exports = lib_code;
+
+// 使用库的方法
+require('library-name-in-npm').doSomething();
+```
+
+> CommonJS2 和 CommonJS规范很相似,差别在于CommonJS只能用`exports`导出,而CommonJS2在CommonJS的基础上增加了`module.exports`的导出方式.
+> 在`output.libraryTarget`为`commonjs2`时,配置`output.library`将没有意义.
+
+* this
+
+编写的库将通过`this`被赋值给通过`library`指定的名称
+
+```js
+// Webpack输出代码
+this['LibraryName'] = lib_code;
+
+// 使用库的方法
+this.LibraryName.doSomething();
+```
+
+* window和global同this
+
+### libraryExport
+
+`output.libraryExport`配置需要导出的模块中哪些子模块需要被导出.它只有在`output.libraryTarget`被设置成`commonjs`或者`commonjs2`时才有意义.
