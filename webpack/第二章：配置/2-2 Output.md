@@ -45,6 +45,8 @@ chunkFilename支持和filename一致的内置变量。
 
 `output.publicPath`配置发布到线上资源的URL前缀，为string类型。默认值是空字符串'',即使用相对路径。
 
+针对url()引用资源的前缀 比如css文件里的图片引用
+
 ```js
 filename: '[name]_[chunkhash:8].js'
 // 线上cdn地址
