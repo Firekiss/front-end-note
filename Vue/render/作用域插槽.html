@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ele>
+            <template scope="props">
+                <span>{{props.text}}</span>
+            </template>
+        </ele>
+    </div>
+
+    <script>
+        Vue.component(
+            'ele',
+            {
+                render: function(createElement) {
+                    return createElement(
+                        'div',
+                        [
+                            this.$scopedSlots.default(
+                                {
+                                    text: this.msg
+                                }
+                            )
+                        ]
+                    )
+                },
+                data: function() {
+                    return {
+                        msg: '来自子组件'
+                    }
+                }
+            }
+        )
+
+        new Vue({
+            el: '#app'
+        });
+    </script>
+</body>
+</html>

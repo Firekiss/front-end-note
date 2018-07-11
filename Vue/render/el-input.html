@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <el-input :name="name" @input="inputChange"></el-input>
+        <div>你的名字是{{ name }}</div>
+    </div>
+    <script>
+        Vue.component('el-input', {
+           render: function(createElement) {
+               // self指向当前的组件实例
+               var self = this
+                return createElement(
+                    'input',
+                    {
+                        // dom 属性
+                        domProps: {
+                            value: self.name,
+                            id: '666',
+                        },
+                        class: {
+                            fuck: true
+                        },
+                        on: {
+                            input: function(event) {
+                                self.$emit('input', event.target.value)
+                            }
+                        }
+                    }
+                )
+           },
+           props: {
+               name: String
+           }
+        })
+
+        new Vue(
+            {
+                el: '#app',
+                data: {
+                    name: 'ci'
+                },
+                methods: {
+                    inputChange(val) {
+                        console.log('newVal', val)
+                        this.name = val
+                    }
+                }
+            }
+        )
+    </script>
+</body>
+</html>

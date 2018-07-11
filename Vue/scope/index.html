@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <tb-list :data="data">
+            <template scope="scope">
+                <div class="info" :s="JSON.stringify(scope)">
+                    <p>姓名: {{scope.row.name}}</p>
+                    <p>年龄: {{scope.row.age}}</p>
+                    <p>性别: {{scope.row.sex}}</p>
+                    <p>索引: {{scope.$index}}</p>
+                </div>
+            </template>
+        </tb-list>
+    </div>
+
+    <script id="tb-list" type="text/x-template">
+        <ul>
+            <!-- 循环生成插槽 -->
+            <li v-for="(item, index) in data">
+                <slot :row="item" :$index="index"></slot>
+            </li>
+        </ul>
+    </script>
+
+    <script>
+        Vue.component('tb-list', {
+            template: '#tb-list',
+            props: {
+                data: {
+                    type: Array,
+                    required: true
+                }
+            }
+        })
+
+        new Vue(
+            {
+                el: '#app',
+                data() {
+                    return {
+                        data: [
+                            {
+                                name: 'tom',
+                                age: '29',
+                                sex: 'man'
+                            },
+                            {
+                                name: 'lili',
+                                age: '30',
+                                sex: 'woman'
+                            }
+                        ]
+                    }
+                }
+            }
+        )
+    </script>
+</body>
+</html>

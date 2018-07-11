@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <blog-post>
+            <h1 slot="header"><span>About Me</span></h1>
+            <p>Here's some page content</p>
+            <p slot="footer">Copyright 2016 Evan You</p>
+            <p>If I have some content down here</p>
+        </blog-post>
+    </div>
+
+    <script>
+        Vue.component('blog-post', {
+            render: function(createElement){
+                var header = this.$slots.header,
+                    body = this.$slots.default,
+                    footer = this.$slots.footer;
+                console.log('header', header);
+                console.log('body', body);
+                console.log('footer', footer);
+                return createElement('div', [
+                    createElement('header', header),
+                    createElement('main', body),
+                    createElement('footer', footer)
+                ])
+            }
+        });
+
+        new Vue({
+            el: '#app'
+        });
+    </script>
+</body>
+</html>
