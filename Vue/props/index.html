@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <parent></parent>
+    </div>
+
+    <script>
+
+        Vue.component(
+            'parent',
+            {
+                template: '<div>{{myMessage.name}}{{myMessage.age}}<child :my-message="myMessage"></child></div>',
+                data() {
+                    return {
+                        myMessage: {
+                            name: "tom",
+                            age: "23"
+                        }
+                    }
+                }
+            }
+        )
+
+        Vue.component(
+            'child',
+            {
+                template: '<span>子组件名称{{ this.newName.name }}</span>',
+                props: ['myMessage'],
+                data() {
+                    return {
+                        newName: this.myMessage
+                    }
+                },
+                mounted() {
+                    this.newName.name = '哈哈'
+                },
+            }
+        )
+
+        new Vue(
+            {
+                el: '#app',
+            }
+        )
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+　　<ul id="test">
+        <li>
+            <p>11111111111</p>
+        </li>
+        <li>
+            <div>
+                22222222
+            </div>
+        </li>
+        <li>
+            <span>3333333333</span>
+        </li>
+        <li>4444444</li>
+    </ul>
+    
+    <script>
+        var oUl = document.getElementById('test')
+
+        oUl.onclick = function(ev) {
+            var target = ev.target
+            while(target !== oUl) {
+                if (target.nodeName.toLowerCase() === 'li') {
+                    alert('666')
+                    break;
+                }
+                target = target.parentNode
+            }
+        }
+    </script>
+</body>
+</html>

@@ -10,6 +10,7 @@
 <body>
     <div id="app">
         <tb-list :data="data">
+            <!-- scope其实是将插槽上面属性对象指向 scope -->
             <template scope="scope">
                 <div class="info" :s="JSON.stringify(scope)">
                     <p>姓名: {{scope.row.name}}</p>
