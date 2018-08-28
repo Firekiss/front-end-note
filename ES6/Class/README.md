@@ -21,7 +21,7 @@ class PersonClass {
 3. 类的所有方法内部都没有[[Construct]], 因此使用new来调用它们会抛出错误
 4. 调用类构造器时不使用new, 会抛出错误
 5. 试图在类的方法内部重写类名, 会抛出错误
-6. 类的所有方法都是不可枚举的,这是对于自定义类型的显著变化,后者必须用Object.defineProperty()才能将方法改变为不可枚举
+6. 类的所有方法都是不可枚举的,这是对于自定义类型的显著变化,后者必须用Object.defineProperty()才能将方法改变为可枚举
 
 #### 一级公民
 
@@ -46,5 +46,37 @@ class Custom {
 ```
 
 方法名称可以使用 [变量] 表达式来命名
+
+#### 类的继承
+
+Class之间可以通过extends关键字实现继承
+
+```js
+    class ColorPoint extends Point {
+        constructor(x, y, color) {
+            // 调用父类的 constructor(x, y)
+            super(x, y)
+            this.color = color;
+        }
+
+        toString() {
+            // 调用父类的 toString()
+            return this.color + ' ' + super.toString();
+        }
+    }
+```
+
+ES5的继承 将子类构造方法的 prototype 属性对象赋值为 父类的实例, 该实例拥有父类的属性和方法, 实例化子类的时候是先创建一个对象,然后将父类的方法赋值给对象的__proto__属性,再将this指向子类实例对象
+
+ES6实质是先创建父类的实例对象this,所以必须先调用super方法,然后再用子类的构造函数修改this
+
+如果子类没有定义constructor方法,这个方法会被默认添加
+在子类的构造函数中,只有调用super之后,才可以使用this关键字
+
+```js
+constructor (...args) {
+    super(...args)
+}
+```
 
 

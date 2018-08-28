@@ -11,4 +11,4 @@ class Person {
 let person = new Person('tony')
 person.sayName()
 
-console.log(person instanceof Person)
+console.log(person)
