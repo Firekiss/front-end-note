@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+    <title>render函数生成模板</title>
+</head>
+<body>
+  <div id="app">
+    <a-dialog>
+      <h1 slot="header">
+        Header
+      </h1>
+
+      <p slot="footer">
+        Copyright 2016 Evan You
+      </p>
+    
+      <p>If I have some content down here, it will also be included in vm.$slots.default.</p>.
+    
+    </a-dialog>
+  </div>
+
+  <script>
+    Vue.component('a-dialog', {
+      render: function(createElement){
+        return createElement('div', [
+          createElement('header', this.$slots.header),
+          createElement('main', this.$slots.default),
+          createElement('footer', this.$slots.footer)
+        ])
+      }
+    });
+
+    new Vue({
+      el: '#app',
+    })
+  </script>
+</body>
+</html>

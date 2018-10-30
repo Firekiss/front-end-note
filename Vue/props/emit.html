@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/vue/2.3.4/vue.js"></script>
+    <title>emit</title>
+</head>
+<body>
+    <div id="app">
+        <fuck :set-title-msg="setTitleMsg" 
+            @set-title-msg-change="msgChange">
+        </fuck>
+    </div>
+    
+    <script>
+        Vue.component('fuck', {
+            template: '<div class="emit">{{ setTitleMsg.title }}</div>',
+            props: {
+                setTitleMsg: {
+                    type: Object,
+                    default: () => {}
+                }
+            },
+            watch: {
+                setTitleMsg: {
+                    handler(newVal) {
+                        this.$emit('set-title-msg-change', newVal)
+                    },
+                    deep: true
+                }
+            },
+            created() {
+                console.log(this)
+            },
+        })
+
+        new Vue({
+            el: '#app',
+            data(){
+                return {
+                    setTitleMsg: {
+                        title: 'title'
+                    }
+                }
+            },
+            created() {
+                setTimeout(() => {
+                    this.setTitleMsg.title = 'fuck'
+                }, 2000)
+            },
+            methods: {
+                msgChange(val) {
+                    console.log('val', val)
+                }
+            }
+        })
+    </script>
+</body>
+</html>
