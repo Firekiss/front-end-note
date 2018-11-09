@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>事件模拟</title>
+	<style type="text/css">
+    	#p { width: 300px; height: 300px; padding: 10px;  border: 1px solid black; }
+		#c { width: 100px; height: 100px; border: 1px solid red; }
+	</style>
+</head>
+<body>
+	<div id="p">
+		parent
+		<div id="c">
+			child
+		</div>
+	</div>
+</body>
+<script>
+
+	var p = document.getElementById('p'),
+		c = document.getElementById('c');
+	
+	// child捕获click事件
+	c.addEventListener('click', function(e){
+		console.log(e);
+		alert('子节点捕获');
+	}, true);
+
+	// child冒泡click事件
+	c.addEventListener('click', function(e){
+		console.log(e);
+		alert('子节点冒泡');
+	}, false);
+
+	// parent捕获click事件
+	p.addEventListener('click', function(e){
+		console.log(e);
+		alert('父节点捕获');
+	}, true);
+
+	// parent冒泡click事件
+	p.addEventListener('click', function(e){
+		console.log(e);
+		alert('父节点冒泡');
+	}, false);
+
+	document.addEventListener('keydown', function(e){
+		if (e.keyCode === 32) {
+			var type = 'click';
+			// 事件可以冒泡的属性
+			var bubbles = true;
+			// 可以阻止浏览器的默认行为
+			var cancelable = true;
+			var view = document.defaultView;
+			var detail = 0;
+			// 事件触发点距离显示器左边的距离
+			var screenX = 0;
+			// 事件触发点距离显示器上边的距离
+			var screenY = 0;
+			// 事件触发点距离可视窗口的左边距离
+			var clientX = 0;
+			// 事件触发点距离可视窗口的上边距离
+			var clientY = 0;
+			// 是否按下ctrl按键
+			var ctrlKey = false;
+			// 是否按下altKey按键
+			var altKey = false;
+			// 是否按下shift按钮
+			var shiftKey = false;
+			// 表示按下哪一个鼠标键
+			var button = 0;
+			var relatedTarget = 0;
+			// 生成事件
+			var event = document.createEvent('Events');
+			event.myFlag = 'alex';
+			event.initEvent(type, bubbles, cancelable, view, detail, screenX, screenY, clientX, clientY, ctrlKey, altKey, shiftKey, button, relatedTarget);
+
+			console.log(event);
+			// 目标元素主动触发前面的自定义事件
+			c.dispatchEvent(event);
+		}
+	})
+</script>
+</html>

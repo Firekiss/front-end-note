@@ -1,12 +1,5 @@
 let node = {
   type: 'Identifier',
-  name: 'foo'
+  name: 'foo',
+  age: 23
 };
-
-// let { type, name } = node;
-
-let type = 'Literal';
-let name = 5;
-
-({ type, name } = node);
-
