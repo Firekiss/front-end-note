@@ -33,6 +33,7 @@
 	c.addEventListener('click', function(e){
 		console.log(e);
 		alert('子节点冒泡');
+		e.stopPropagation();
 	}, false);
 
 	// parent捕获click事件
@@ -80,7 +81,7 @@
 
 			console.log(event);
 			// 目标元素主动触发前面的自定义事件
-			c.dispatchEvent(event);
+			//c.dispatchEvent(event);
 		}
 	})
 </script>

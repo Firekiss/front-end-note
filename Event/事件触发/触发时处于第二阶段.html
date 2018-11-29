@@ -1,0 +1,62 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style type="text/css">
+         #p { width: 300px; height: 300px; padding: 10px;  border: 1px solid black; }
+         #c { width: 200px; height: 200px; border: 1px solid red; }
+         #sub { width: 100px; height: 100px; border: 1px solid red; }
+    </style>
+</head>
+<body>
+    <div id="p">
+        parent
+        <div id="c">
+            child
+            <div id="sub">
+            sub
+
+        </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+      window.alert = function (msg) {
+        console.log(msg);
+      };
+
+      var p = document.getElementById('p'),
+        c = document.getElementById('c'),
+      sub = document.getElementById('sub');
+
+      sub.addEventListener('click', function (e) {
+        alert('sub节点冒泡')
+      }, false);
+
+      sub.addEventListener('click', function (e) {
+		alert('sub节点捕获')
+      }, true);
+
+      p.addEventListener('click', function (e) {
+        alert('父节点捕获11')
+      }, true);
+
+      p.addEventListener('click', function (e) {
+        alert('父节点冒泡')
+      }, false);
+
+
+      c.addEventListener('click', function (e) {
+        alert('子节点冒泡')
+	  }, false);
+	  
+	  c.addEventListener('click', function (e) {
+        alert('子节点捕获')
+      }, true);
+
+      p.addEventListener('click', function (e) {
+        alert('父节点捕获')
+      }, true);
+
+    </script>
+</body>
+</html>
