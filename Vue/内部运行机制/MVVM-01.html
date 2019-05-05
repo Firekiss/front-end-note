@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>MVVM-01</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div id="app">
+        <div>{{a.b}}</div>
+        {{c}}
+        <input v-model="c">
+        {{hello}}
+    </div>
+
+    <script src="./MVVM-01.js"></script>
+    <script>
+        vm = new Mvvm({
+            el: '#app',
+            data: {
+                a: {
+                    b: 'i am b'
+                },
+                c: 'this is c'
+            },
+            computed: {
+                hello() {
+                    return this.a.b + this.c
+                }
+            },
+        })
+    </script>
+</body>
+</html>
