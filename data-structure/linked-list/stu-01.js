@@ -1,3 +1,5 @@
+// 手写JS实现单向链表
+
 
 let LinkedList = (function(){
     class Node {
@@ -44,5 +46,93 @@ let LinkedList = (function(){
             l++
             length.set(this, l)
         }
+
+        // 在链表的指定位置插入一个节点
+        insert(position, element) {
+            if (position >= 0 && position <= this.size()) {
+                let node = new Node(element), 
+                    current = this.getHead()
+                    previous,
+                    index = 0
+
+                if (position === 0) {
+                    node.next = current
+                    head.set(this, node)
+                } else {
+                    while(index++ < position) {
+                        previous = current
+                        current = current.next
+                    }
+                    node.next = current
+                    previous.next = node
+                }
+                let l = this.size()
+                l++
+                length.set(this, l)
+                return true
+            }
+            return false
+        }
+
+        // 删除指定索引位置的节点
+        removeAt(position) {
+            if (position > -1 && position < this.size()) {
+                let current = this.getHead(),
+                    previous,
+                    index = 0
+
+                if (position === 0) {
+                    head.set(this, current.next)
+                } else {
+                    while(index++ < position) {
+                        previous = current
+                        current = current.next
+                    }
+                    previous.next = current.next
+                }
+                let l = this.size()
+                l--
+                length.set(this, l)
+                return current.element
+            }
+            return null
+        }
+
+        indexOf(element) {
+            let current = this.getHead(),
+                index = 0
+            
+            while(current) {
+                if (element === current.element) {
+                    return index
+                }
+                index++
+                current = current.next
+            }
+            return -1
+        }
+
+        // 移除指定的节点
+        remove(element) {
+            let index = this.indexOf(element)
+            return this.removeAt(index)
+        }
+
+        isEmpty() {
+            return this.size() === 0
+        }
+
+        toString() {
+            let current = this.getHead(),
+                string = ''
+
+            while(current) {
+                string += current.element + (current.next ? ', ' : '')
+                current = current.next
+            }
+            return string
+        }
     }
+
+    return LinkedList2
 })();
