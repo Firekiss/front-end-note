@@ -105,6 +105,8 @@ class WriteStream extends EventEmitter {
 
             // 写入位置右移
             this.pos += bytesWritten
+            // 减少缓存字节数
+            this.length -= bytesWritten
 
             cb && cb()
             // 已经写到了结束位置
