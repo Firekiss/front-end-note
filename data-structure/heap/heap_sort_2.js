@@ -32,6 +32,7 @@ const sortNode = (node, arr) => {
     }
 }
 
+
 // 将三个节点中最大值和一开始的顶点值进行交换
 const swap = (node, max, arr) => {
     const tmp = arr[node]
@@ -40,6 +41,19 @@ const swap = (node, max, arr) => {
 }
 
 
+// 将大顶堆按照从大到小的顺序进行排序
+const heapSort = heap => {
+    const sortedArr = []
+    while(heap.length) {
+        swap(0, heap.length - 1, heap)
+        sortedArr.push(heap.pop())
+        sortNode(0, heap)
+    }
+    return sortedArr
+}
+
+
 let arr = [1,3,2,4,5,6,7,8,9,10,12,11,14,13,15]
 buildHeap(arr)
 console.log(arr)
+console.log(heapSort(arr))
