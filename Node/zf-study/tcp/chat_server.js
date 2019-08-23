@@ -1,3 +1,7 @@
+/**
+ * 使用node编写聊天室服务器
+ */
+
 const net = require('net')
 
 
