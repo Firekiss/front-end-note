@@ -1,0 +1,16 @@
+#! /usr/local/bin/node
+
+// 它可以帮我们解析命令行,变成对象形式
+const yargs = require('yargs')
+
+
+let argv = yargs.options('n', {
+    alias: 'name',
+    demand: true,
+    defalut: 'alex',
+    description: '请输入你的姓名'
+}).argv
+
+console.log(argv)
+
+
