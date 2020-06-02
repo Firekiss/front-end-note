@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "test": "mocha senior/lesson5/test/"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.0.0"
+  }
+}
